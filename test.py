@@ -6,15 +6,23 @@ def Product():
 
 def Product_menu():
     global product_menu
+    global no_product
     product_menu = ""
     product_menu = input("Enter = ทำรายการต่อ, B = ย้อนกลับ, V = ดูข้อมูลสินค้า : ").upper()
     while product_menu == "V":
         print("รหัสสินค้า ชื่อสินค้า ทุน ราคา")
         Product()
-        for x in product:
-            sh = x.split()
-            print("%s %s %s %s" % (sh[0], sh[1], sh[2], sh[3]))
-        product_menu = input("Enter = ทำรายการต่อ, B = ย้อนกลับ, V = ดูข้อมูลสินค้า : ").upper()
+        if len(product) != 0:
+            for x in product:
+                sh = x.split()
+                print("%s %s %s %s" % (sh[0], sh[1], sh[2], sh[3]))
+            product_menu = input("Enter = ทำรายการต่อ, B = ย้อนกลับ, V = ดูข้อมูลสินค้า : ").upper()
+            no_product = 1
+        else :
+            print("ไม่มัข้อมูลสินค้า")
+            Product_menu()
+            no_product = 0
+            break
 
 Product()
 pro_menu = ""
@@ -52,24 +60,28 @@ while pro_menu != "5" :
         copy_product = product
         Product_menu()
         while product_menu != "B" :
-            del_product = input("กรุณากรอกรหัสสินค้า : ")
-            for x in product:
-                new_product = x.split()
-                list_product.append(new_product[0])
-            if del_product in list_product:
-                pos = list_product.index(del_product)
-                del_detail = copy_product.pop(pos)
-                print("คุณได้ลบ %s"%del_detail)
-                file = open("product.txt","w",encoding="utf-8")
-                for x in copy_product:
-                    data = x.split()
-                    file.write("%s %s %s %s\n"%(data[0],data[1],data[2],data[3]))
-                print("ลบข้อมูลเรียบร้อย")
-                file.close()
+            if len(product) == 0:
+                print("ไม่มีข้อมูลสินค้าให้ลบ")
                 Product_menu()
             else:
-                print("ไม่มีรหัสสินค้านี้ในระบบ!")
-                Product_menu()
+                del_product = input("กรุณากรอกรหัสสินค้า : ")
+                for x in product:
+                    new_product = x.split()
+                    list_product.append(new_product[0])
+                if del_product in list_product:
+                    pos = list_product.index(del_product)
+                    del_detail = copy_product.pop(pos)
+                    print("คุณได้ลบ %s"%del_detail)
+                    file = open("product.txt","w",encoding="utf-8")
+                    for x in copy_product:
+                        data = x.split()
+                        file.write("%s %s %s %s\n"%(data[0],data[1],data[2],data[3]))
+                    print("ลบข้อมูลเรียบร้อย")
+                    file.close()
+                    Product_menu()
+                else:
+                    print("ไม่มีรหัสสินค้านี้ในระบบ!")
+                    Product_menu()
 
     elif pro_menu == "3":
         product_menu = ""
@@ -122,6 +134,7 @@ while pro_menu != "5" :
                 file.write("")
                 file.close()
                 print("ล้างข้อมูลสำเร็จ")
+                Product_menu()
             else:
                 print("ยกเลิกการล้างข้อมูล")
 
