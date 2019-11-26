@@ -19,13 +19,13 @@ def Page_buy():
     bc = ""
     while buy_menu != "B" or bc != "B":
         buy_num = 0
-        bc = input("กรุณากรอกรหัสสินค้า หรือกด V = แสดงข้อมูลสินค้า หรือ B = กลับสู่เมนูหลัก หรือ S = แสดงสินค้าทั้งหมด: ").upper()
+        bc = input("กรุณากรอกรหัสสินค้า หรือกด V = แสดงข้อมูลการซื้อ หรือ B = กลับสู่เมนูหลัก หรือ S = แสดงสินค้าทั้งหมด: ").upper()
         if bc == "S":
             print("รหัสสินค้า ชื่อสินค้า ราคา")
             for x in product:
                 sh = x.split()
                 print("%s %s %s"%(sh[0],sh[1],sh[3]))
-            bc = input("กรุณากรอกรหัสสินค้า หรือกด V = แสดงข้อมูลสินค้า หรือ B = กลับสู่เมนูหลัก หรือ S = แสดงสินค้าทั้งหมด: ").upper()
+            bc = input("กรุณากรอกรหัสสินค้า หรือกด V = แสดงข้อมูลการซื้อ หรือ B = กลับสู่เมนูหลัก หรือ S = แสดงสินค้าทั้งหมด: ").upper()
 
         if bc != "V" and bc != "B":
             for x in product :
@@ -39,18 +39,16 @@ def Page_buy():
                     add_name = input("กรุณากรอกชื่อสินค้า : ").replace(" ","")
                     add_cost = int(input("กรุณากรอกราคาทุน : "))
                     add_price = int(input("กรุณากรอกราคาขาย : "))
-                    file.write("\n"+add_bc+" "+add_name+" "+str(add_cost)+" "+str(add_price))
+                    file.write(add_bc+" "+add_name+" "+str(add_cost)+" "+str(add_price)+"\n")
                     file.close()
                     print("> เพิ่มข้อมูลสำเร็จ <")
 
             check_bc2 = []
             list_product2 = []
-            file2 = open("product.txt", "r", encoding="utf-8")
-            product2 = file2.read().splitlines()
-            file2.close()
+            Product()
             buy_name=[]
             buy_price=[]
-            for x in product2:
+            for x in product:
                 list_product2 = x.split()
                 check_bc2.append(list_product2[0])
                 buy_name.append(list_product2[1])
