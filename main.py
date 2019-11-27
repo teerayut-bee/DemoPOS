@@ -434,7 +434,7 @@ def Show_MainOrder():
             print("> HOME/ORDER/CLEAR")
             confirm = ""
             while confirm != "Y" and confirm != "N":
-                confirm = input("คุณต้องการลบล้างรายการ ใช่หรือไม่ (Y/N) : " % str(order_menu)).upper()
+                confirm = input("คุณต้องการลบล้างรายการ ใช่หรือไม่ (Y/N) : ").upper()
                 if confirm == "Y":
                     f_buy_main = open("buy_main.txt", "w", encoding="utf-8")
                     f_buy_detail = open("buy_detail.txt", "w", encoding="utf-8")
